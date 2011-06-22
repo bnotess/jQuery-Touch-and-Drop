@@ -1,0 +1,48 @@
+===========================================================================
+jQuery Touch And Drop
+Brian Notess, http://briannotess.com/, @bnotess
+============================================================================
+
+ABOUT
+
+jQuery Touch And Drop is a simple, lightweight plugin for adding drag and drop functionality to touch screen web applications. 
+-------------------------------------------
+
+OPTION PARAMETERS
+
+onDrop        function
+Write a function to be executed when each element is "dropped" (touched).
+Defaults, null
+
+minMove      number
+Choose a minimum number of pixels an element has to move before the callback is executed
+Defaults to 20.
+
+
+-------------------------------------------
+
+EXAMPLES
+
+Add drag and drop functionality to elements with the class attribute 'touchme'. If the element is moved more than 15 pixels in any direction, a function will run adding '<p> Dropped! </p>' to a div element with the id "alerts".
+
+  $(document).ready(function(){
+		
+	$('.touchme').touchAndDrop({
+		onDrop: function() {$('#alerts').html('<p> Dropped! </p>')},
+		minMove: 15
+	});
+});	
+
+
+-------------------------------------------
+
+CONTACT
+
+Web:      http://briannotess.com
+Twitter:  @bnotess
+Email:    brian@freshroastcreative.com
+
+============================================================================
+
+MIT license:
+http://www.opensource.org/licenses/mit-license.php
