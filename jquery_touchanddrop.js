@@ -1,4 +1,4 @@
-// jQuery Touch And Drop 1.0
+// jQuery Touch And Drop 1.1
 // 
 // Developed By Brian Notess http://briannotess.com
 // This plugin is based on jQuery WipeTouch 1.0.0 Developed  by Devv: http://devv.com and
@@ -22,14 +22,18 @@
 //		
 //
 // For More info visit www.freshroastcreative.com/touchanddrop
+//
+// V1.1 added argument to "onDrop" function that passes back the active node element
 
 (function($) {
+	var actNode = null; //init variable for storing active node object.
 
 	$.fn.touchAndDrop = function(options) {
 	
 	//Sets up Defaults Object 	
  	var defaults = {
-	
+		actNode: null,
+		stopProp: false,
     	onDrop: null,
     	minMove: 20
     
@@ -41,7 +45,7 @@
    	var isMoving = false; //variable to determine if element is moving. 	
 
 		    		
-	$(this).each(function(){
+	return this.each(function(){
 		//sets up position object to store event position data
 		var pos = $.extend({
     		 startX: null,
@@ -55,7 +59,12 @@
     	});	
 			
 		function onTouchStart(e){
-		
+			if (opts.stopProp) {
+				e.stopPropagation();
+			}
+			
+			actNode = $(this); //assign active node opbject
+			
 			//set event position data on touchstart
 			pos.startX = e.touches[0].pageX;
 			pos.startY = e.touches[0].pageY;
@@ -114,20 +123,21 @@
 					isMoving = false;	
 				
 					//calls function
-					opts.onDrop();	
+					opts.onDrop(actNode); //passes active node object back as an argument. 
 										
 				
 				}
-								
+				
+				
 			}
 							
 			//Set up touch event listeners. 
 			this.addEventListener('touchstart', onTouchStart, false);
 			this.addEventListener('touchend', onTouchEnd, false);		
-		
-					 									
+			
+												
 		});				 
-
+		
 	}
 
 })(jQuery);
